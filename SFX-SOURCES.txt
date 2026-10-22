@@ -1,0 +1,17 @@
+Katana slash transition SFX
+
+Source: Mixkit (https://mixkit.co/free-sound-effects/sword/)
+License: Mixkit Sound Effects Free License
+License terms: https://mixkit.co/license/#sfxFree
+Downloaded: 2026-10-12
+
+Files used by the transition:
+- mixkit-fast-sword-whoosh-2792.wav — "Fast sword whoosh", item 2792
+  https://assets.mixkit.co/active_storage/sfx/2792/2792.wav
+- mixkit-sword-blade-swish-1506.wav — "Sword blade swish", item 1506
+  https://assets.mixkit.co/active_storage/sfx/1506/1506.wav
+- mixkit-metal-hit-woosh-1485.wav — "Metal hit woosh", item 1485
+  https://assets.mixkit.co/active_storage/sfx/1485/1485.wav
+
+The metal whoosh and sword blade swish are the alternating katana slash
+effects. The fast sword whoosh file is retained locally but is not played.

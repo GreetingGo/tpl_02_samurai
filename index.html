@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#141414">
+    <meta
+        id="pageDescription"
+        name="description"
+    >
+
+    <title>GreetingGo</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Noto+Serif+JP:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Konfigurasi kartu -->
+    <script src="config.js" defer></script>
+
+    <!-- Animasi dan interaksi -->
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <!-- =====================================
+         GLOBAL ELEMENTS
+    ====================================== -->
+
+    <video
+        id="coverVideo"
+        class="global-background-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        aria-hidden="true"
+    >
+        <source id="coverVideoSource">
+    </video>
+    <div class="global-video-overlay" aria-hidden="true"></div>
+
+    <!-- Overlay transisi sayatan -->
+    <div id="slashTransition" class="slash-transition" aria-hidden="true">
+        <div class="slash-half slash-half--a" aria-hidden="true"></div>
+        <div class="slash-half slash-half--b" aria-hidden="true"></div>
+        <div class="slash-scar" aria-hidden="true"></div>
+        <div class="slash-impact" aria-hidden="true"></div>
+    </div>
+
+    <!-- Audio dimuat lokal tanpa diputar; playback baru dimulai saat transisi. -->
+    <audio
+        id="slashWhooshMetal"
+        preload="auto"
+        src="assets/audio/mixkit-metal-hit-woosh-1485.wav"
+        aria-hidden="true"
+    ></audio>
+    <audio
+        id="slashWhooshBlade"
+        preload="auto"
+        src="assets/audio/mixkit-sword-blade-swish-1506.wav"
+        aria-hidden="true"
+    ></audio>
+    <!-- Lapisan tekstur film -->
+    <div class="film-grain" aria-hidden="true"></div>
+
+    <!-- Kontrol musik -->
+    <button
+        id="musicButton"
+        class="music-button"
+        type="button"
+        aria-label="Aktifkan atau matikan musik"
+        aria-pressed="false"
+        hidden
+    >
+        <span id="musicIcon">♪</span>
+    </button>
+
+    <audio id="backgroundMusic" preload="none"></audio>
+
+    <main id="invitation">
+
+        <!-- =====================================
+             SCENE 01 - THE SUMMONING
+             Cover utama
+        ====================================== -->
+
+        <section id="cover" class="scene cover-scene active">
+
+            <div class="cover-background">
+            </div>
+
+            <div class="cover-mist"></div>
+
+            <div class="cover-content">
+
+                <p id="coverChapter" class="scene-number"></p>
+
+                <div class="japanese-emblem">
+                    <span id="coverEmblem"></span>
+                </div>
+
+                <p id="coverSubtitle" class="cover-subtitle"></p>
+
+                <h1 id="mainTitle" class="main-title">
+                    <span id="coverTitleLead"></span>
+                    <span id="coverTitleAccent"></span>
+                </h1>
+
+                <div class="title-divider">
+                    <span></span>
+                    <span class="divider-symbol">◆</span>
+                    <span></span>
+                </div>
+
+                <p id="coverDescription" class="cover-description"></p>
+
+                <!-- Ilustrasi katana -->
+                <div class="katana-container">
+                    <img
+                        id="katanaImage"
+                        alt="Ilustrasi katana"
+                        class="katana-image"
+                    >
+                </div>
+
+                <button
+                    id="openInvitation"
+                    class="primary-button"
+                    type="button"
+                >
+                    <span id="openButtonLabel"></span>
+                    <span id="openButtonSymbol" class="button-symbol"></span>
+                </button>
+
+                <p id="coverFooter" class="cover-footer"></p>
+
+            </div>
+
+        </section>
+
+        <!-- =====================================
+             SCENE 02 - THE AWAKENING
+             Foto utama penerima
+        ====================================== -->
+
+        <section id="awakening" class="scene awakening-scene">
+
+            <div class="scene-background awakening-background"></div>
+
+            <div class="scene-content">
+
+                <p id="awakeningChapter" class="scene-number"></p>
+
+                <p id="awakeningJapaneseHeading" class="japanese-heading"></p>
+
+                <h2 id="awakeningTitle" class="section-title">
+                    <span id="awakeningTitleLead"></span>
+                    <span id="awakeningTitleAccent"></span>
+                </h2>
+
+                <p id="awakeningDescription" class="section-description"></p>
+
+                <!-- Foto utama -->
+                <div class="main-photo-wrapper">
+
+                    <div class="photo-decoration top-left"></div>
+                    <div class="photo-decoration bottom-right"></div>
+
+                    <img
+                        id="mainPhoto"
+                        alt=""
+                        class="main-photo"
+                    >
+
+                    <div class="photo-caption">
+                        <span id="recipientName"></span>
+                        <span id="photoCaption" class="photo-caption-jp"></span>
+                    </div>
+
+                </div>
+
+                <p id="openingMessage" class="opening-message"></p>
+
+                <button
+                    class="next-button"
+                    type="button"
+                    data-next="journey"
+                >
+                    <span id="continueJourneyLabel"></span>
+                    <span class="next-symbol"></span>
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- =====================================
+             SCENE 03 - THE JOURNEY
+             Dua foto kenangan
+        ====================================== -->
+
+        <section id="journey" class="scene journey-scene">
+
+            <div class="scene-background journey-background"></div>
+
+            <div class="scene-content">
+
+                <p id="journeyChapter" class="scene-number"></p>
+
+                <p id="journeyJapaneseHeading" class="japanese-heading"></p>
+
+                <h2 id="journeyTitle" class="section-title">
+                    <span id="journeyTitleLead"></span>
+                    <span id="journeyTitleAccent"></span>
+                </h2>
+
+                <p id="journeyDescription" class="section-description"></p>
+
+                <div id="memoryGallery" class="memory-gallery"></div>
+
+                <div id="journeyDivider" class="journey-divider" aria-hidden="true">
+                    <span></span>
+                    <span id="journeyDividerSymbol"></span>
+                    <span></span>
+                </div>
+
+                <button
+                    class="next-button"
+                    type="button"
+                    data-next="oath"
+                >
+                    <span id="unfoldOathLabel"></span>
+                    <span class="next-symbol"></span>
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- =====================================
+             SCENE 04 - THE OATH
+             Kartu ucapan utama
+        ====================================== -->
+
+        <section id="oath" class="scene oath-scene">
+
+            <div class="scene-background oath-background"></div>
+
+            <div class="scene-content">
+
+                <p id="oathChapter" class="scene-number"></p>
+
+                <p id="oathJapaneseHeading" class="japanese-heading"></p>
+
+                <h2 id="oathTitle" class="section-title">
+                    <span id="oathTitleLead"></span>
+                    <span id="oathTitleAccent"></span>
+                </h2>
+
+                <p id="oathDescription" class="section-description"></p>
+
+                <!-- Gulungan kartu ucapan -->
+                <div id="letterScroll" class="letter-scroll">
+
+                    <div class="scroll-top"></div>
+
+                    <div class="scroll-paper">
+
+                        <div id="letterOrnament" class="scroll-ornament"></div>
+
+                        <p id="letterLabel" class="letter-label"></p>
+
+                        <h3 id="letterTitle" class="letter-title"></h3>
+
+                        <div class="letter-divider"></div>
+
+                        <p id="letterMessage" class="letter-message"></p>
+
+                        <div class="letter-signature">
+
+                            <p id="letterSignatureLabel"></p>
+
+                            <span id="senderName"></span>
+
+                        </div>
+
+                        <!-- Stempel Jepang -->
+                        <div class="hanko-stamp" aria-hidden="true">
+                            <span id="letterStamp"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="scroll-bottom"></div>
+
+                </div>
+
+                <button
+                    class="next-button"
+                    type="button"
+                    data-next="closing"
+                >
+                    <span id="finalDawnLabel"></span>
+                    <span class="next-symbol"></span>
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- =====================================
+             SCENE 05 - THE FINAL DAWN
+             Penutup + WhatsApp
+        ====================================== -->
+
+        <section id="closing" class="scene closing-scene">
+
+            <div class="scene-background closing-background"></div>
+            <div class="closing-mist"></div>
+
+            <div class="scene-content closing-content">
+
+                <p id="closingChapter" class="scene-number"></p>
+
+                <p id="closingJapaneseHeading" class="japanese-heading"></p>
+
+                <h2 id="closingTitle" class="closing-title">
+                    <span id="closingTitleLead"></span>
+                    <span id="closingTitleAccent"></span>
+                </h2>
+
+                <div class="closing-emblem">
+                    <span id="closingEmblem"></span>
+                </div>
+
+                <p id="closingMessage" class="closing-message"></p>
+
+                <div class="closing-divider"></div>
+
+                <p id="closingSignature" class="closing-signature"></p>
+
+                <p id="closingSubtitle" class="closing-subtitle"></p>
+
+                <!-- =================================
+                     PROMOSI GREETINGGO
+                ================================== -->
+
+                <div class="order-section">
+
+                    <p id="orderLabel" class="order-label"></p>
+
+                    <h3 id="orderTitle"></h3>
+
+                    <p id="orderDescription" class="order-description"></p>
+
+                    <a
+                        id="whatsappButton"
+                        class="whatsapp-button"
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label=""
+                    >
+                        <span id="whatsappLabel"></span>
+                        <span id="whatsappSymbol"></span>
+                    </a>
+
+                </div>
+
+                <footer class="site-footer">
+                    <p id="footerTitle"></p>
+                    <p id="footerTagline"></p>
+                </footer>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <template id="memoryCardTemplate">
+        <article class="memory-card">
+            <div class="memory-image-wrapper">
+                <img class="memory-image" alt="">
+            </div>
+            <div class="memory-caption">
+                <span class="memory-index"></span>
+                <p></p>
+            </div>
+        </article>
+    </template>
+
+</body>
+</html>
